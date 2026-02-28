@@ -1,6 +1,7 @@
 ---
 const title = "Hello world !!";
-const imageError = "https://www.publicdomainpictures.net/pictures/190000/nahled/sad-dog-1468499671wYW.jpg";
+const imageError =
+  "https://www.publicdomainpictures.net/pictures/190000/nahled/sad-dog-1468499671wYW.jpg";
 const res = await fetch("https://dog.ceo/api/breeds/image/random");
 const response = await res.json();
 const dogImageUrl = response?.message ?? imageError;
@@ -17,6 +18,28 @@ const dogImageUrl = response?.message ?? imageError;
   </head>
   <body>
     <h1>{title}</h1>
-    <img src={dogImageUrl} alt="Random Dog" style="max-width: 400px; height: auto;"/>
+    <img
+      src={dogImageUrl}
+      alt="Random Dog"
+      style="max-width: 400px; height: auto;"
+    />
+    <div>
+      <button id="cat-image-button">Get Cat Image</button>
+    </div>
+    <div>
+      <img id="cat-image" style="max-width: 400px; height: auto;" />
+    </div>
   </body>
 </html>
+<script>
+  const button = document.getElementById("cat-image-button");
+  const imageEl = document.getElementById("cat-image") as HTMLImageElement;
+
+  if (button && imageEl) {
+    button.addEventListener("click", async () => {
+      const res = await fetch("https://api.thecatapi.com/v1/images/search");
+      const data = await res.json();
+      imageEl.src = data[0].url;
+    });
+  }
+</script>
